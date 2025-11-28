@@ -12,7 +12,7 @@ import java.awt.*;
  */
 public class Main extends JFrame {
 	
-	private Logger logger = LoggerFactory.getLogger(Main.class);
+	private final Logger logger = LoggerFactory.getLogger(Main.class);
 	
 	public Main() {
 		// logic
