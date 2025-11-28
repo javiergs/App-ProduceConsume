@@ -1,3 +1,6 @@
+![Static Badge](https://img.shields.io/badge/author-javiergs-orange)
+![GitHub repo size](https://img.shields.io/github/repo-size/javiergs/App-ProduceConsume)
+
 This application implements a fully interactive **Producer--Consumer simulation** using Java Swing.
 
 It visualizes how multiple worker threads interact with a shared bounded
