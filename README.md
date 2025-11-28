@@ -1,4 +1,4 @@
-This application implements a fully interactive **Producer--Consumer simulation** using Java Swing.\
+This application implements a fully interactive **Producer--Consumer simulation** using Java Swing.
 
 It visualizes how multiple worker threads interact with a shared bounded
 buffer (`Storage`) under mutual-exclusion constraints, using color-coded
