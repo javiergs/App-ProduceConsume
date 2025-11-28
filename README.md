@@ -1,20 +1,15 @@
-This project implements a fully interactive **Producer--Consumer
-simulation** using Java Swing.\
+This project implements a fully interactive **Producer--Consumer simulation** using Java Swing.\
 It visualizes how multiple worker threads interact with a shared bounded
 buffer (`Storage`) under mutual-exclusion constraints, using color-coded
-states and real-time UI updates.
+states and real-time UI updates. 
 
-The application is designed both as a **teaching tool** for concurrency
-and synchronization,\
-and as a functional demo of:
+The application demo of:
 
 -   Locks and condition variables (`ReentrantLock`, `Condition`)
 -   Producer/Consumer patterns
 -   Multi-threading
 -   UI--model synchronization via `PropertyChangeSupport`
 -   Real-time table and grid rendering in Swing
-
-------------------------------------------------------------------------
 
 ## ✨ Features
 
@@ -34,21 +29,3 @@ and as a functional demo of:
 
 Components include PanelTable, PanelGrid, PanelControl, Storage,
 Workplace, and worker classes.
-
-------------------------------------------------------------------------
-
-## 🚀 Running the Application
-
-``` bash
-javac *.java
-java Main
-```
-
-------------------------------------------------------------------------
-
-## 🧠 Educational Goals
-
--   Concurrency
--   Locks and conditions
--   Swing threading rules
--   Real-time visualization
