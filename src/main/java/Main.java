@@ -1,6 +1,3 @@
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,8 +8,6 @@ import java.awt.*;
  * @version 1.0
  */
 public class Main extends JFrame {
-	
-	private final Logger logger = LoggerFactory.getLogger(Main.class);
 	
 	public Main() {
 		// logic
@@ -26,11 +21,9 @@ public class Main extends JFrame {
 		tabbedPane.add(new JScrollPane(panelTable), "Table View");
 		tabbedPane.add(panelGrid, "Grid View");
 		add(tabbedPane, BorderLayout.CENTER);
-		logger.info("Main window initialized.");
 	  // listeners
 		Workplace.getInstance().addPropertyChangeListener(panelTable);
 		Workplace.getInstance().addPropertyChangeListener(panelGrid);
-		logger.info("Listeners added to WorkPlace.");
 	}
 	
 	public static void main(String[] args) {
