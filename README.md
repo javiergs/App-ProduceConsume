@@ -26,12 +26,12 @@ states and real-time UI updates. It is a demo of:
 
 ### 🧮 Bounded Storage Buffer
 
-A classic Producer--Consumer implementation with: - A fixed-size
-synchronized buffer\
-- `ReentrantLock` for mutual exclusion\
-- Two condition variables: - `fullBuffer` → Producers wait when buffer
-is full\
-- `emptyBuffer` → Consumers wait when buffer is empty
+A classic Producer--Consumer implementation with: 
+- A fixed-size synchronized buffer
+    - `ReentrantLock` for mutual exclusion
+- Two condition variables:
+    - `fullBuffer` → Producers wait when buffer is full
+    - `emptyBuffer` → Consumers wait when buffer is empty
 
 Producers add items to the tail; consumers remove from the head.
 
@@ -40,9 +40,10 @@ Producers add items to the tail; consumers remove from the head.
 
 ### `PanelTable`
 
-Displays a table of all workers with: - ID\
-- Type (Producer or Consumer)\
-- Current state\
+Displays a table of all workers with: 
+- ID
+- Type (Producer or Consumer)
+- Current state
 - Color-coded rows based on their state
 
 ### `PanelGrid`
@@ -52,46 +53,39 @@ bottom - Colors changing according to worker state
 
 ### `PanelControl`
 
-Allows configuration of: - Number of workers\
-- Buffer size\
-- Worker sleep time\
+Allows configuration of: 
+- Number of workers
+- Buffer size
+- Worker sleep time
 - Start/Stop simulation
 
 ### `Workplace`
 
-Controller class that: - Manages worker lifecycle\
-- Broadcasts worker state changes with `PropertyChangeSupport`\
+Controller class that: 
+- Manages worker lifecycle
+- Broadcasts worker state changes with `PropertyChangeSupport`
 - Sends UI cleanup signals on reset
 
 ### `Storage`
 
-Thread-safe buffer implementing: - Locking\
-- Conditions\
-- Blocking behavior\
+Thread-safe buffer implementing: 
+- Locking
+- Conditions
+- Blocking behavior
 - Exclusive access simulation
 
 
 ## 🎛️ Controls
 
--   **Storage Size** → Capacity of buffer\
--   **Number of Workers** → Producers + Consumers\
+-   **Storage Size** → Capacity of buffer
+-   **Number of Workers** → Producers + Consumers
 -   **Sleep Time** → Worker processing time
 
-Buttons: - ▶️ **Run** --- Starts all workers\
+Buttons: 
+
+- ▶️ **Run** --- Starts all workers
 - ⏹️ **Stop** --- Stops simulation, resets UI
 
-
-## 🎨 Color Legend (Example)
-
-  State                 Producer Color   Consumer Color
-  --------------------- ---------------- ------------------
-  BORN                  white tones      light gray tones
-  RUNNING               green tones      darker green
-  WAITING               yellow tones     deep yellow
-  IN_EXCLUSIVE_ACCESS   orange           darker orange
-  DEAD                  gray             dark gray
-
-(Color values are defined in `Configure.java`.)
 
 
 ## 🧵 Thread Coordination & Swing Safety
@@ -103,8 +97,9 @@ Event Dispatch Thread (EDT)** using:
 SwingUtilities.invokeLater(() -> updateModel(...));
 ```
 
-This prevents: - Race conditions\
-- Out-of-range table updates\
+This prevents: 
+- Race conditions
+- Out-of-range table updates
 - Random UI exceptions
 
 All table modifications (`setRowCount`, `addRow`, `setValueAt`) are
