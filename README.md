@@ -1,5 +1,7 @@
 ![Static Badge](https://img.shields.io/badge/author-javiergs-orange)
 ![GitHub repo size](https://img.shields.io/github/repo-size/javiergs/App-ProduceConsume)
+![Java](https://img.shields.io/badge/Java-17+-blue)
+![Platform](https://img.shields.io/badge/platform-Java_Swing-orange)
 
 This application implements a fully interactive **Producer--Consumer simulation** using Java Swing.
 
