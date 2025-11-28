@@ -1,16 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  *
  *
  */
-public class GameZone extends JPanel {
+public class PanelGrid extends JPanel  implements PropertyChangeListener {
 
   private Worker.State[] statuses;
   private String [] types;
-
-  public GameZone(int number) {
+	
+	public PanelGrid() {
+	
+	}
+  public PanelGrid(int number) {
     this.statuses = new Worker.State[number];
     this.types = new String[number];
   }
@@ -37,4 +42,9 @@ public class GameZone extends JPanel {
     types[id] = type;
     repaint();
   }
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+	
+	}
 }

@@ -6,15 +6,15 @@
  */
 public class Producer extends Worker {
 	
-	public Producer(int id, int sleepTime) {
-		super(id, sleepTime);
+	public Producer(int id, int sleepTime, Storage storage) {
+		super(id, sleepTime, storage);
 	}
 	
 	@Override
 	public void doWork() {
 		doTask();
 		int value = (int) Math.floor( Math.random() * 100 );
-		Storage.getInstance().put(this, value);
+		storage.put(this, value);
 		doTask();
 	}
 

@@ -6,14 +6,14 @@
  */
 public class Consumer extends Worker {
 	
-	public Consumer(int id, int sleepTime) {
-		super(id, sleepTime);
+	public Consumer(int id, int sleepTime, Storage storage) {
+		super(id, sleepTime, storage);
 	}
 	
 	@Override
 	public void doWork() {
 		doTask();
-		Storage.getInstance().get(this);
+		storage.get(this);
 		doTask();
 	}
 	

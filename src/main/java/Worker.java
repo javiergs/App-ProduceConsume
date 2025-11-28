@@ -1,3 +1,6 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -9,9 +12,12 @@ import java.beans.PropertyChangeSupport;
  */
 public abstract class Worker implements Runnable {
 	
+	private static final Logger logger = LoggerFactory.getLogger(Worker.class);
+
 	protected int id;
 	protected int sleepTime;
-	protected State state;
+	protected volatile State state;
+	protected final Storage storage;
 	
 	public enum State {
 		BORN,
@@ -30,34 +36,43 @@ public abstract class Worker implements Runnable {
 		pcs.addPropertyChangeListener(l);
 	}
 	
-	public Worker (int id, int sleepTime) {
+	public void stop() {
+		setState(State.DEAD);
+	}
+	
+	public Worker (int id, int sleepTime, Storage storage) {
 		this.id = id;
 		this.sleepTime = sleepTime;
 		this.setState(State.BORN);
+		this.storage = storage;
 	}
 	
 	@Override
 	public void run() {
 		setState(State.RUNNING);
-		while (!state.equals(State.DEAD)) {
+		while (state != State.DEAD) {
+			// logger.info("Worker {} is state {}.", id, state);
 			doWork();
 		}
-		setState(State.DEAD);
+		logger.info("Worker {} has finished execution.", id);
 	}
 	
-	protected void setState(State status) {
+	protected void setState(State state) {
 		State old = this.state;
-		this.state = status;
-		if (status == State.WAITING) {
-			if (waitingSince < 0) {  // <--- guard: do not reset if already waiting
+		if (old == State.DEAD || old == state) {
+			return;
+		}
+		this.state = state;
+		if (state == State.WAITING) {
+			if (waitingSince < 0) {
 				waitingSince = System.currentTimeMillis();
 			}
 		} else {
-			// Any other state: clear waiting start
 			waitingSince = -1L;
 		}
-		pcs.firePropertyChange("state", old, status);
-		
+		//pcs.firePropertyChange("state", old, state);
+		WorkSpace.getInstance().update(this);
+	
 	}
 	
 	public State getState () {
@@ -68,14 +83,14 @@ public abstract class Worker implements Runnable {
 		return id;
 	}
 	
-	public int getSleepTime() {
-		return sleepTime;
-	}
-	
 	public abstract void doWork();
 	
 	public void doTask() {
-		for (double i = 0; i < 10000; i += 0.00001) {}
+		try {
+			Thread.sleep(sleepTime);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public synchronized double getCurrentWaitingSeconds() {
@@ -83,10 +98,7 @@ public abstract class Worker implements Runnable {
 			return 0.0;
 		}
 		long now = System.currentTimeMillis();
-		
-		// IMPORTANT: 1000.0 so we get DOUBLE division, not integer
-		return (now - waitingSince) / 10.0;
+		return (now - waitingSince) / 100.0;
 	}
-
 	
 }
