@@ -1,6 +1,3 @@
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -12,11 +9,9 @@ import java.beans.PropertyChangeListener;
  * View class that displays the state of workers in a table and a grid.
  *
  * @author javiergs
- * @version 1.0
+ * @version 2.0
  */
 public class PanelTable extends JPanel implements PropertyChangeListener {
-	
-	private Logger logger = LoggerFactory.getLogger(PanelTable.class);
 	
 	private DefaultTableModel model;
 	

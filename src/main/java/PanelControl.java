@@ -55,12 +55,12 @@ public class PanelControl extends JPanel implements ActionListener {
 			int storageMax = Integer.parseInt(storageSizeField.getText().trim());
 			int workersMax = Integer.parseInt(threadsField.getText().trim());
 			int sleepTime = Integer.parseInt(sleepTimeField.getText().trim());
-			WorkSpace.getInstance().initialize(workersMax, sleepTime, storageMax);
-			WorkSpace.getInstance().setActive(true);
+			Workplace.getInstance().initialize(workersMax, sleepTime, storageMax);
+			Workplace.getInstance().setActive(true);
 			toggleButton.setText(STOP_SYMBOL);
 		} else {
 			logger.info("Click on ControlPanel to stop workers.");
-			WorkSpace.getInstance().setActive(false);
+			Workplace.getInstance().setActive(false);
 			toggleButton.setText(RUN_SYMBOL);
 		}
 	}

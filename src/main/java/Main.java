@@ -28,8 +28,8 @@ public class Main extends JFrame {
 		add(tabbedPane, BorderLayout.CENTER);
 		logger.info("Main window initialized.");
 	  // listeners
-		WorkSpace.getInstance().addPropertyChangeListener(panelTable);
-		WorkSpace.getInstance().addPropertyChangeListener(panelGrid);
+		Workplace.getInstance().addPropertyChangeListener(panelTable);
+		Workplace.getInstance().addPropertyChangeListener(panelGrid);
 		logger.info("Listeners added to WorkPlace.");
 	}
 	

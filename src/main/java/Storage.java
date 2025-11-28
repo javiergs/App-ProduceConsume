@@ -1,6 +1,3 @@
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.LinkedList;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -10,11 +7,9 @@ import java.util.concurrent.locks.ReentrantLock;
  * A thread-safe shared resource that facilitates data storage and retrieval.
  *
  * @author javiergs
- * @version 1.0
+ * @version 2.0
  */
 public class Storage {
-	
-	private Logger logger = LoggerFactory.getLogger(Storage.class);
 	
 	private LinkedList<Integer> buffer;
 	private int size;

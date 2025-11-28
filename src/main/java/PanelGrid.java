@@ -5,9 +5,14 @@ import java.beans.PropertyChangeListener;
 import java.util.*;
 import java.util.List;
 
+/**
+ * Panel that displays a grid of workers with colors based on their states.
+ *
+ * @author javiergs
+ * @version 2.0
+ */
 public class PanelGrid extends JPanel implements PropertyChangeListener {
 	
-	// Worker ID → Worker
 	private final Map<Integer, Worker> workers = new LinkedHashMap<>();
 	
 	@Override
@@ -46,9 +51,8 @@ public class PanelGrid extends JPanel implements PropertyChangeListener {
 			int gridCol = index % cols;
 			int x = gridCol * cellW;
 			int y = gridRow * cellH;
-			// Decide "row" parameter for color based on type:
 			// 0 → Producer tone, 1 → Consumer tone
-			int toneRow = (worker instanceof Producer) ? 0 : 1;
+			int toneRow = (worker instanceof WorkerProducer) ? 0 : 1;
 			Color fill = colorForState(worker.getState().name(), toneRow);
 			g2.setColor(fill);
 			g2.fillRect(x, y, cellW, cellH);
