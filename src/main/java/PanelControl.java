@@ -1,6 +1,3 @@
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,8 +18,6 @@ public class PanelControl extends JPanel implements ActionListener {
 	
 	private final String RUN_SYMBOL = "▶";
 	private final String STOP_SYMBOL = "⏹";
-	
-	private Logger logger = LoggerFactory.getLogger(PanelControl.class);
 	
 	public PanelControl() {
 		// fields
@@ -50,16 +45,22 @@ public class PanelControl extends JPanel implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals(RUN_SYMBOL)) {
-			logger.info("Click on ControlPanel to start workers.");
-			int storageMax = Integer.parseInt(storageSizeField.getText().trim());
-			int workersMax = Integer.parseInt(threadsField.getText().trim());
-			int sleepTime = Integer.parseInt(sleepTimeField.getText().trim());
-			Workplace.getInstance().initialize(workersMax, sleepTime, storageMax);
-			Workplace.getInstance().setActive(true);
-			toggleButton.setText(STOP_SYMBOL);
+		if (RUN_SYMBOL.equals(e.getActionCommand())) {
+			try {
+				int storageMax = Integer.parseInt(storageSizeField.getText().trim());
+				int workersMax = Integer.parseInt(threadsField.getText().trim());
+				int sleepTime = Integer.parseInt(sleepTimeField.getText().trim());
+				if (storageMax <= 0 || workersMax <= 0 || sleepTime < 0)
+					throw new NumberFormatException("Values must be positive");
+				Workplace.getInstance().initialize(workersMax, sleepTime, storageMax);
+				Workplace.getInstance().setActive(true);
+				toggleButton.setText(STOP_SYMBOL);
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(this,
+					"Please enter positive integers for all fields.",
+					"Invalid Input", JOptionPane.ERROR_MESSAGE);
+			}
 		} else {
-			logger.info("Click on ControlPanel to stop workers.");
 			Workplace.getInstance().setActive(false);
 			toggleButton.setText(RUN_SYMBOL);
 		}

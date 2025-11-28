@@ -39,8 +39,8 @@ public class PanelTable extends JPanel implements PropertyChangeListener {
 					}
 					// Color only the STATE column (index 2)
 					if (column == 2 && value != null) {
-						String stateStr = value.toString();
-						c.setBackground(colorForState(stateStr, row));
+						Worker.State state = Worker.State.valueOf(value.toString());
+						c.setBackground(Configure.colorForState(state, row));
 					}
 				}
 				return c;
@@ -53,20 +53,24 @@ public class PanelTable extends JPanel implements PropertyChangeListener {
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("do-cleaning")) {
-			model.setRowCount(0);
-		} else if (evt.getPropertyName().equals("worker-state-changed")) {
+		if (evt.getPropertyName().equals(Workplace.PROP_DO_CLEANING)) {
+			SwingUtilities.invokeLater(() ->
+				model.setRowCount(0)
+			);
+		} else if (evt.getPropertyName().equals(Workplace.PROP_WORKER_STATE)) {
 			Worker worker = (Worker) evt.getNewValue();
 			if (worker != null) {
-				updateModel(worker.getClass().getName(), worker.getState(), worker.getId());
+				SwingUtilities.invokeLater(() ->
+					updateModel(worker.getClass().getName(), worker.getState(), worker.getId())
+				);
 			}
 		}
 	}
 	
 	private void updateModel(String type, Worker.State status, int id) {
 		int rowIndex = findRowIndexById(id);
-		if (rowIndex == -1) return;
-		String s = status.name();
+		if (rowIndex < 0 || rowIndex >= model.getRowCount())  return;
+			String s = status.name();
 		model.setValueAt(type, rowIndex, 1);
 		model.setValueAt(s, rowIndex, 2);
 	}
@@ -79,34 +83,9 @@ public class PanelTable extends JPanel implements PropertyChangeListener {
 			}
 		}
 		// add
+		int newRow = model.getRowCount();
 		model.addRow(new Object[]{id, "", ""});
-		return -1;
-	}
-	
-	private Color colorForState(String state, int row) {
-		boolean isEven = (row % 2 == 0);
-		switch (state) {
-			case "BORN":
-				return isEven ? new Color(255, 255, 255, 180)
-					: new Color(230, 230, 230, 200);
-			case "RUNNING":
-				return isEven ? new Color(150, 255, 180, 180)
-					: new Color(100, 205, 130, 200);
-			case "WAITING":
-				return isEven ? new Color(255, 245, 120, 180)
-					: new Color(205, 195, 70, 180);
-			case "EXCLUSIVE_ACCESS":
-				return isEven ? new Color(255, 160, 160, 180)
-					: new Color(205, 110, 110, 180);
-			case "STOPPED":
-				return isEven ? new Color(140, 170, 255, 180)
-					: new Color(100, 130, 220, 200);
-			case "DEAD":
-				return isEven ? new Color(210, 210, 210, 180)
-					: new Color(170, 170, 170, 200);
-			default:
-				return isEven ? Color.WHITE : new Color(230, 230, 230);
-		}
+		return newRow;
 	}
 	
 }

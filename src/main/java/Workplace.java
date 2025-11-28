@@ -8,6 +8,9 @@ import java.beans.PropertyChangeSupport;
  */
 public class Workplace extends PropertyChangeSupport {
 	
+	public static final String PROP_WORKER_STATE = "worker-state-changed";
+	public static final String PROP_DO_CLEANING = "do-cleaning";
+	
 	private static Workplace instance;
 	
 	private Storage storage;
@@ -43,7 +46,7 @@ public class Workplace extends PropertyChangeSupport {
 	}
 	
 	private void start() {
-		firePropertyChange("do-cleaning", null, true);
+		firePropertyChange(PROP_DO_CLEANING, null, true);
 		for (Worker worker : workers) {
 			String threadName = worker.getClass().getName() + "" + worker.getId();
 			new Thread(worker, threadName).start();
@@ -51,7 +54,7 @@ public class Workplace extends PropertyChangeSupport {
 	}
 	
 	public void update(Worker worker) {
-		firePropertyChange("worker-state-changed", null, worker);
+		firePropertyChange(PROP_WORKER_STATE, null, worker);
 	}
 	
 	private void stop() {

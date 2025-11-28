@@ -42,7 +42,8 @@ public abstract class Worker implements Runnable {
 		try {
 			Thread.sleep(sleepTime);
 		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
+			Thread.currentThread().interrupt();
+			setState(State.DEAD);
 		}
 	}
 	
