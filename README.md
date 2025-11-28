@@ -12,6 +12,11 @@ states and real-time UI updates. It is a demo of:
 -   Correct handling of Swing threading (EDT) via
     `SwingUtilities.invokeLater`
 
+## 🏞️ Screenshot
+
+<img width="912" height="712" alt="Screenshot 2025-11-28 at 1 35 08 AM" src="https://github.com/user-attachments/assets/8f6faaa5-d128-43f6-bdac-a826122650ba" />
+
+
 ## ✨ Features
 
 ### 🔄 Real-Time Simulation
